@@ -62,7 +62,7 @@ public class WordGramTester {
 		WordGram as = a.shiftAdd("cat");
 		String after = a.toString();
 		assertEquals("shift add",as.equals(b),true);
-		assertEquals("shift add length",WordGram.length() == WordGram.length(),true);
+		assertEquals("shift add length",as.length() == a.length(),true);
 		assertEquals("before after shift",before.equals(after),true);
 	}
 

@@ -19,8 +19,8 @@ public class WordGram {
 	 */
 	public WordGram(String[] source, int start, int size) {
 		myWords = new String[size];
-		myToString = null;
-		myHash = 0;
+		myToString = myWords.toString();
+		myHash = myWords.hashCode();
 		// TODO: initialize myWords and ...
 	}
 
@@ -40,7 +40,7 @@ public class WordGram {
 	 * Complete this comment
 	 * @return
 	 */
-	public static int length(){
+	public int length(){
 		
 		return myWords.length;
 	}
