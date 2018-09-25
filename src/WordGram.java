@@ -1,13 +1,13 @@
 /**
  * WordGram objects represent a k-gram of strings/words.
  * 
- * @author YOUR-NAME
+ * @author Kamyar Yazdani
  *
  */
 
 public class WordGram {
 	
-	private String[] myWords;   
+	private static String[] myWords;   
 	private String myToString;  // cached string
 	private int myHash;         // cached hash value
 
@@ -19,6 +19,8 @@ public class WordGram {
 	 */
 	public WordGram(String[] source, int start, int size) {
 		myWords = new String[size];
+		myToString = null;
+		myHash = 0;
 		// TODO: initialize myWords and ...
 	}
 
@@ -38,25 +40,25 @@ public class WordGram {
 	 * Complete this comment
 	 * @return
 	 */
-	public int length(){
-		// TODO: change this
-		return 0;
+	public static int length(){
+		
+		return myWords.length;
 	}
 
 
 	@Override
 	public boolean equals(Object o) {
-		if (! (o instanceof WordGram) || o == null){
-			return false;
-		}
 
-	    // TODO: complete this method
-		return true;
+		if (o instanceof WordGram) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public int hashCode(){
 		// TODO: complete this method
+		myHash = myWords.toString().hashCode();
 		return myHash;
 	}
 	
@@ -67,14 +69,16 @@ public class WordGram {
 	 * @return
 	 */
 	public WordGram shiftAdd(String last) {
+		myWords[myWords.length-1] = last;
 		WordGram wg = new WordGram(myWords,0,myWords.length);
-		// TODO: Complete this method
+		
 		return wg;
 	}
 
 	@Override
 	public String toString(){
 		// TODO: Complete this method	
+		myToString = String.join(" ",myWords);
 		return myToString;
 	}
 }
