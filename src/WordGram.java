@@ -7,20 +7,21 @@
 
 public class WordGram {
 	
-	private static String[] myWords;   
+	private String[] myWords;   
 	private String myToString;  // cached string
 	private int myHash;         // cached hash value
 
 	/**
-	 * Create WordGram (add comments)
-	 * @param source
-	 * @param start
-	 * @param size
+	 * Create WordGram using String array. 
+	 * @param source: Array of strings which the WordGram takes words from.
+	 * @param start: Index of the passed Array where WordGram starts taking words.
+	 * @param size: Length of WordGram (Number of Words stored)
 	 */
 	public WordGram(String[] source, int start, int size) {
 		myWords = new String[size];
-		for (int i = start; i < size; i++) {
-			myWords[i] = source[i];
+		for (int i = 0; i < size; i++) {
+			
+			myWords[i] = source[i+start];
 		}
 		myToString = null;
 		myHash = 0;
@@ -40,8 +41,8 @@ public class WordGram {
 	}
 
 	/**
-	 * Complete this comment
-	 * @return
+	 * Return int of the number of words in this WordGram
+	 * @return int of internal array size 
 	 */
 	public int length(){
 		
@@ -51,31 +52,49 @@ public class WordGram {
 
 	@Override
 	public boolean equals(Object o) {
-
-		if (o instanceof WordGram) {
-			return true;
+		if (! (o instanceof WordGram) || o == null){
+			return false;
 		}
-		return false;
+	    // TODO: complete this method
+		else {
+			WordGram wg = (WordGram) o;
+			if (wg.length() != this.length()) {
+				return false;
+			}
+			else {
+				return (this.toString()).equals(o.toString());
+			}
+		}
 	}
 
 	@Override
 	public int hashCode(){
-		if (myHash == 0) {
-		
-		myHash = myWords.toString().hashCode();
-
+		// TODO: complete this method
+		if (this.myHash == 0) {
+			String a = (this.toString());
+			this.myHash = a.hashCode();
+			return myHash;
+		}
+		else {
+			return myHash;
+		}
 	}
-		return myHash;}
+	
 
 	/**
-	 * Create and complete this comment
+	 * Return new WordGram with previous elements shifted left one, and passed String appended to end. 
 	 * @param last is last String of returned WordGram
-	 * @return
+	 * @return WordGram with shifted elements and last added to end
 	 */
-	public WordGram shiftAdd(String last) {
-		myWords[myWords.length-1] = last;
-		WordGram wg = new WordGram(myWords,0,myWords.length);
+	public WordGram shiftAdd(String last) { 
+		// TODO: Complete this method
+		String[] words = new String[this.length()];
 		
+		for (int i = 0; i < words.length-1 ; i++) {
+			words[i] = this.wordAt(i+1); 
+					}
+		words[words.length-1]=last;
+		WordGram wg = new WordGram(words,0,this.myWords.length);
 		return wg;
 	}
 
@@ -87,11 +106,4 @@ public class WordGram {
 		}
 
 		return myToString;}
-	
-	public static void main(String args[]) {
-		String[] test = {"1", "2", "3", "4", "5"};
-		WordGram a = new WordGram(test, 0, 3);
-		System.out.println(a.hashCode());
-		
 	}
-}
