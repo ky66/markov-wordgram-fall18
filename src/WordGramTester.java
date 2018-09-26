@@ -16,6 +16,7 @@ public class WordGramTester {
 		for(int k=0; k < array.length-2; k++){
 			myGrams[k] = new WordGram(array,k,3);
 		}
+		System.out.println(myGrams[0]);
 	}
 
 	@Test
@@ -48,8 +49,11 @@ public class WordGramTester {
 		for(WordGram w : myGrams) {
 			set.add(w.hashCode());
 		}
+		System.out.println(set);
 
 		assertTrue("hash code test", set.size() > 9);
+		System.out.println(set.size());
+		
 	}
 	
 	
