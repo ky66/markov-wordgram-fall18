@@ -1,4 +1,4 @@
-YOUR NAME and YOUR NETID
+Kamyar Yazdani ky66
 
 Run WordGramDiver for wordgrams of size 2-10 and record
 the number of WordGram values/objects that occur more than
@@ -15,12 +15,12 @@ values of WSIZE
 WSIZE    # duplicates
 2        60,453
 3        10,756
-4
-5
-7
-8
-9
-10
+4	1987
+5	667
+7	226
+8	151
+9	105
+10	73
 
 =====
 Explain in your own words the conceptual differences between 
@@ -30,10 +30,24 @@ Answer these questions:
 (1) Why the results of these methods should be the same in 
 terms of changes made to the HashSet parameter.
 
+So the way benchmark does its operation is that it scans the file and as long as there is a next word following every word, it places the words into an arraylist. Then, it loops over the entire array from k = 0 position to k = words.length - WSIZE + 1 to not run out of the index range. Then for each k (each index in the word array) it starts adding word gram objects that start with k index and have the size WSIZE and puts them in a set. 
+
+On the other hand, looking at the benchmarkshift, the way it works is that it starts from the beginning and as long as there is a next word following in the text file, it starts creating wordgram objects of size WSIZE starting from index 0 and to move on to next indexes and create new Word gram objects, it utilizes the ShiftAdd method we created earlier which should create and return a new WordGram object with k entries (where k is the order of this WordGram) whose first k-1 entries are the same as the last k-1 entries of this WordGram, and whose last entry is the parameter last. So it moves on because it keeps adding new items to its last index and therefore puts all the possible WordGram object into the list.
+
+Both methods start from the beginning and add all the possible word gram objects that could be created from the text files from the beginning to the end so that is why we get the same number of wordgram objects and unique objects from both methods.
+
 (2) What are the conceptual differences between the two
-benchmarking methods
+benchmarking methods.
+
+The looping in benchmark goes after every single possible index of a word in the text file and creates Word Gram objects of a certain size as a result. However, benchmark shift creates an initial word gram object of 
+WordGram current = new WordGram(words,0,WSIZE) and the uses the shift add method to add stuff to its last position and move forward in the list of words. 
 
 (3) Is the total amount of memory allocated for arrays
 the same or different in the two methods? Account for
 arrays created in the methods and arrays created by
 WordGram objects. Try to be quantitative in answering.
+
+If we look at benchmark for instance, we see that it puts all the words into a list in a memory location and then it loops over all the indexes and stores all the possible WordGram objects in wg and adds them to the set at the end. So it does this memory allocation equal to the number of wordgram objects.
+
+Looking at benchmarkshift, there is no memory allocated for a list containing all the words in the file. However, current is having a memory location in which each word gram object is being stored at. So that number is the same number as the number of wg objects in the benchmark method. However, benchmark shift has a method shiftadd which creates new arrays each time its called within its own method so benchmark shift is going to create a lot more memory locations that just benchmark. Because methods in benchmark don t do memory locations of their own.
+
